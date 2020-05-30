@@ -1,0 +1,11 @@
+Requirements:
+* Novel solution
+* Must render Shrek at least
+* >= AALib/pixlab.io
+* No image doubling hacks!
+* Color (V2; do B/W first)
+
+* Edge detection pre-pass (sharpening, OpenCV?)
+* Dithering
+* Cutoff for brightness of unimportant details (detect focus of scene / brightest object, average brightness?)
+    * +/- Margin of error
