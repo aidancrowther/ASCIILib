@@ -19,5 +19,6 @@ target_include_directories(image-converter
     PUBLIC ${PROJECT_SOURCE_DIR}/include
     PUBLIC ${PROJECT_SOURCE_DIR}/examples/image-converter/include
 )
-target_link_libraries(image-converter PUBLIC ASCIILib)
+target_link_libraries(image-converter PUBLIC ASCIILib png)
+target_compile_options(image-converter PUBLIC -lpng)
 
