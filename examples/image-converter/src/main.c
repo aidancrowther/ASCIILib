@@ -7,6 +7,7 @@ int width, height;
 png_byte color_type;
 png_byte bit_depth;
 png_bytep *row_pointers = NULL;
+ASCIILib_Image* image_struct;
 
 bool read_png_file(char* filename);
 void process_png_file();
@@ -23,7 +24,22 @@ int main (int argc, char** argv) {
     }
 
     if (read_png_file(argv[1]));
+
+    image_struct = malloc(sizeof(image_struct));
+    image_struct->height = height;
+    image_struct->width = width;
     process_png_file();
+
+    int terminal_h = 50,
+        terminal_w = 80;
+    char** image = convertToASCII(terminal_w, terminal_h, image_struct);
+
+    for (int h=0; h<terminal_h; h++){
+        for (int w=0; w<terminal_w; w++){
+            printf("%c", image[h][w]);
+        }
+        printf("\n");
+    }
 
     return 0;
 }
@@ -169,12 +185,17 @@ void write_png_file(char *filename) {
 }
 
 void process_png_file() {
+  image_struct->pixels = malloc(sizeof(ASCIILib_Pixel*) * height);
   for(int y = 0; y < height; y++) {
+    image_struct->pixels[y] = malloc(sizeof(ASCIILib_Pixel) * width);
     png_bytep row = row_pointers[y];
     for(int x = 0; x < width; x++) {
       png_bytep px = &(row[x * 4]);
       // Do something awesome for each pixel here...
-      printf("%4d, %4d = RGBA(%3d, %3d, %3d, %3d)\n", x, y, px[0], px[1], px[2], px[3]);
+      //printf("%4d, %4d = RGBA(%3d, %3d, %3d, %3d)\n", x, y, px[0], px[1], px[2], px[3]);
+      image_struct->pixels[y][x].red   = px[0];
+      image_struct->pixels[y][x].blue  = px[1];
+      image_struct->pixels[y][x].green = px[2];
     }
   }
 }
