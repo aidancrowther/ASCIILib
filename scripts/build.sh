@@ -4,7 +4,6 @@ set -e
 
 cd "$(dirname "$0")"
 cd ..
+cmake . -B build/
 cmake --build build/
-
-./build/image-converter test_images/shrek.png
 
