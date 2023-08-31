@@ -14,9 +14,6 @@ void process_png_file();
 void write_png_file(char *filename);
 
 int main (int argc, char** argv) {
-    int x = func();
-    printf("ASCIILib.h's func() returned: %d\n", x);
-
     if (argc != 2) {
         printf("argc %d\n", argc);
         printf("Please pass filename as command line argument\n  $ ./image-converter <shrek-picture.png>\n");
@@ -30,8 +27,9 @@ int main (int argc, char** argv) {
     image_struct->width = width;
     process_png_file();
 
-    int terminal_h = 50,
-        terminal_w = 80;
+    int terminal_h = 60,
+        terminal_w = 120;
+
     char** image = convertToASCII(terminal_w, terminal_h, image_struct);
 
     for (int h=0; h<terminal_h; h++){
