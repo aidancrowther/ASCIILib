@@ -3,25 +3,24 @@
 // This lib is intended for you to easily
 // pass a pixel array in and get an ascii image back
 
-#include <math.h>
 #include <stdlib.h>
+#include <stdint.h>
 
-int func();
-
+#include <math.h>
 
 typedef struct ASCIILib_Pixel {
-    unsigned char red;
-    unsigned char blue;
-    unsigned char green;
+    uint8_t red;
+    uint8_t blue;
+    uint8_t green;
 } ASCIILib_Pixel;
 
 typedef struct ASCIILib_Image {
-    int width;
-    int height;
+    size_t width;
+    size_t height;
     ASCIILib_Pixel** pixels;
 } ASCIILib_Image;
 
-// takes an image in and returns ascii
+// takes an image in and returns ascii of the specified size
 // arguments:
 //   * int width_out  <- the requested width  of the ascii grid
 //   * int height_out <- the requested height of the ascii grid
@@ -30,4 +29,7 @@ typedef struct ASCIILib_Image {
 //   * a ascii image of the input dimensions
 //     The returned values are rows of characters (of size width) from top to bottom
 char** convertToASCII(int width_out, int height_out, ASCIILib_Image* image);
+
+size_t AsciiArtTextBufSize(size_t width, size_t height);
+void convertGreyScaleToASCII(uint8_t* image, size_t width, size_t height, char* return_text);
 
